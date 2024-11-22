@@ -3,6 +3,7 @@ const fileUpload = require("express-fileupload");
 const pdfParse = require("pdf-parse");
 const cors = require('cors');
 const dotenv = require('dotenv');
+const path = require('path');
 
 // Load environment variables from .env file
 dotenv.config();
@@ -10,16 +11,21 @@ dotenv.config();
 const app = express();
 
 app.use(cors());
-app.use("/", express.static("public"));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileUpload());
 app.use(express.json({ limit: '50mb' }));
 
 const fetch = (...args) =>
   import("node-fetch").then(({ default: fetch }) => fetch(...args));
 
-// Debugging information
-console.log("Environment variables:", process.env);
-console.log("API_KEY from environment:", process.env.API_KEY);
+// Serve static files
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+app.get('/app', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'app.html'));
+});
 
 // Error handling middleware
 app.use((err, req, res, next) => {
