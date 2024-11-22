@@ -1,0 +1,30 @@
+    Analyze the following budget text and provide insights:
+    
+    ${extractedText}
+    
+    Please provide a detailed analysis in the following JSON format:
+    {
+      "totalTransactions": "Number of total transactions",
+      "totalDebits": "Total amount of debits",
+      "totalCredits": "Total amount of credits",
+      "majorExpenses": [
+        "Expense 1 with amount",
+        "Expense 2 with amount",
+        "Expense 3 with amount"
+      ],
+      "majorIncomes": [
+        "Income 1 with amount and source",
+        "Income 2 with amount and source",
+        "Income 3 with amount and source"
+      ],
+      "suggestions": [
+        "Suggestion 1 on where to spend and how much, based on the data",
+        "Suggestion 2 on where to spend and how much, based on the data",
+        "Suggestion 3 on where to spend and how much, based on the data"
+      ]
+    }
+
+    Ensure all numerical values are formatted as strings with appropriate currency symbols or units.
+    IMPORTANT: Respond ONLY with the JSON object, no additional text or formatting.
+    Do not include a 'Net balance' field in the response.
+    ALWAYS include EXACTLY 3 suggestions, 3 major expenses, and 3 major incomes based on the analyzed data.
