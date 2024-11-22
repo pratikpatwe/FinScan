@@ -50,10 +50,7 @@ app.post("/analyze-text", async (req, res) => {
       return res.status(400).json({ error: "No extracted text provided" });
     }
 
-    console.log("Checking API_KEY...");
     const apiKey = process.env.API_KEY;
-    console.log("API_KEY value:", apiKey);
-
     if (!apiKey) {
       console.error("API_KEY is not set in environment variables");
       return res.status(500).json({ error: "Server configuration error: API_KEY not set" });
@@ -140,8 +137,6 @@ app.post("/analyze-text", async (req, res) => {
           ]
         };
 
-        console.log("Request body:", JSON.stringify(requestBody, null, 2));
-
         const response = await fetch(endpoint, {
           method: "POST",
           headers: {
@@ -151,35 +146,25 @@ app.post("/analyze-text", async (req, res) => {
         });
 
         const responseData = await response.text();
-        console.log("Raw API Response:", responseData);
 
         if (!response.ok) {
-          console.error(`HTTP error! status: ${response.status}, statusText: ${response.statusText}`);
-          console.error(`Error body: ${responseData}`);
           throw new Error(`HTTP error! status: ${response.status}`);
         }
 
         const data = JSON.parse(responseData);
 
         if (!data.candidates || !data.candidates[0] || !data.candidates[0].content || !data.candidates[0].content.parts || !data.candidates[0].content.parts[0].text) {
-          console.error("Invalid response format from Gemini API:", JSON.stringify(data, null, 2));
           throw new Error("Invalid response format from Gemini API");
         }
 
         const analysisText = data.candidates[0].content.parts[0].text;
-        console.log("Analysis text:", analysisText);
         
         try {
           analysisJson = JSON.parse(analysisText);
         } catch (jsonError) {
           console.error("Error parsing JSON:", jsonError);
           console.error("Raw response:", analysisText);
-          if (jsonError.message.includes("Unexpected token '`'") || jsonError.message.includes("is not valid JSON")) {
-            console.error("Invalid JSON received. Retrying...");
-            retries++;
-            continue;
-          }
-          throw jsonError;
+          throw new Error("Invalid JSON in API response content");
         }
         
         const ensureThreeItems = (array, defaultItems) => {
@@ -221,11 +206,7 @@ app.post("/analyze-text", async (req, res) => {
         console.error(`Attempt ${retries + 1} failed:`, err);
         retries++;
         if (retries >= maxRetries) {
-          console.error("Max retries reached. Sending error response.");
-          return res.status(500).json({ 
-            error: "Failed to process the request after multiple attempts",
-            details: err.message
-          });
+          throw new Error("Failed to process the request after multiple attempts");
         }
         await new Promise(resolve => setTimeout(resolve, 1000));
       }
