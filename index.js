@@ -56,7 +56,7 @@ app.post("/analyze-text", async (req, res) => {
       return res.status(400).json({ error: "No extracted text provided" });
     }
 
-    const apiKey = 'AIzaSyBRtDBuBg54diryp76zUXU4qMVP5Kng16g'; //process.env.API_KEY;
+    const apiKey = process.env.NEW_API_KEY;
     if (!apiKey) {
       console.error("API_KEY is not set in environment variables");
       return res.status(500).json({ error: "Server configuration error: API_KEY not set" });
