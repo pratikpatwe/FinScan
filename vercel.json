@@ -2,34 +2,14 @@
   "version": 2,
   "builds": [
     {
-      "src": "root/index.js",
+      "src": "index.js",
       "use": "@vercel/node"
     }
   ],
-  "rewrites": [
+  "routes": [
     {
-      "source": "/app.html",
-      "destination": "/root/public/app.html"
-    },
-    {
-      "source": "/index.html",
-      "destination": "/root/public/index.html"
-    },
-    {
-      "source": "/FinScan.png",
-      "destination": "/root/public/FinScan.png"
-    },
-    {
-      "source": "/feedback-review.svg",
-      "destination": "/root/public/feedback-review.svg"
-    }
-  ],
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
-      ]
+      "src": "/(.*)",
+      "dest": "index.js"
     }
   ]
 }
