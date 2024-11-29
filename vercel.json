@@ -11,16 +11,5 @@
       "src": "/(.*)",
       "dest": "index.js"
     }
-  ],
-  "rewrites": [
-    { "source": "/old-route", "destination": "/new-route" }
-  ],
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
-      ]
-    }
   ]
 }
