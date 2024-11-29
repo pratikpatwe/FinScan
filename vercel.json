@@ -2,26 +2,26 @@
   "version": 2,
   "builds": [
     {
-      "src": "index.js",
+      "src": "root/index.js",
       "use": "@vercel/node"
     }
   ],
   "rewrites": [
     {
       "source": "/app.html",
-      "destination": "/public/app.html"
+      "destination": "/root/public/app.html"
     },
     {
       "source": "/index.html",
-      "destination": "/public/index.html"
+      "destination": "/root/public/index.html"
     },
     {
       "source": "/FinScan.png",
-      "destination": "/public/FinScan.png"
+      "destination": "/root/public/FinScan.png"
     },
     {
       "source": "/feedback-review.svg",
-      "destination": "/public/feedback-review.svg"
+      "destination": "/root/public/feedback-review.svg"
     }
   ],
   "headers": [
