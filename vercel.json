@@ -1,33 +1,33 @@
-   {
-     "version": 2,
-     "builds": [
-       {
-         "src": "index.js",
-         "use": "@vercel/node"
-       }
-     ],
-     "routes": [
-       {
-         "src": "/old-route",
-         "dest": "/new-route"
-       },
-       {
-         "src": "/(.*)",
-         "dest": "index.js"
-       }
-     ],
-     "headers": [
-       {
-         "source": "/index.html",
-         "headers": [
-           { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
-         ]
-       },
-       {
-         "source": "/app.html",
-         "headers": [
-           { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
-         ]
-       }
-     ]
-   }
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "index.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/old-route",
+      "dest": "/new-route"
+    },
+    {
+      "src": "/index.html",
+      "dest": "/index.html",
+      "headers": {
+        "Cache-Control": "no-cache, no-store, must-revalidate"
+      }
+    },
+    {
+      "src": "/app.html",
+      "dest": "/app.html",
+      "headers": {
+        "Cache-Control": "no-cache, no-store, must-revalidate"
+      }
+    },
+    {
+      "src": "/(.*)",
+      "dest": "index.js"
+    }
+  ]
+}
