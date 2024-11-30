@@ -4,30 +4,35 @@
     {
       "src": "index.js",
       "use": "@vercel/node"
+    },
+    {
+      "src": "public/**/*",
+      "use": "@vercel/static"
     }
   ],
-  "routes": [
+  "rewrites": [
     {
-      "src": "/(.*)",
-      "dest": "index.js"
-    },
+      "source": "/(.*)",
+      "destination": "index.js"
+    }
+  ],
+  "headers": [
     {
-      "src": "/app.html",
-      "dest": "/app.html",
-      "headers": {
-        "Cache-Control": "no-cache, no-store, must-revalidate"
-      }
-    },
-    {
-      "src": "/index.html",
-      "dest": "/index.html",
-      "headers": {
-        "Cache-Control": "no-cache, no-store, must-revalidate"
-      }
-    },
-    {
-      "src": "/(.*)",
-      "dest": "index.js"
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
+        },
+        {
+          "key": "Pragma",
+          "value": "no-cache"
+        },
+        {
+          "key": "Expires",
+          "value": "0"
+        }
+      ]
     }
   ]
 }
