@@ -1,18 +1,33 @@
-{
-  "version": 2,
-  "builds": [
-    {
-      "src": "index.js",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "index.js"
-    }
-  ],
-  "rewrites": [
-    { "source": "/old-route", "destination": "/new-route" }
-  ]
-}
+   {
+     "version": 2,
+     "builds": [
+       {
+         "src": "index.js",
+         "use": "@vercel/node"
+       }
+     ],
+     "routes": [
+       {
+         "src": "/old-route",
+         "dest": "/new-route"
+       },
+       {
+         "src": "/(.*)",
+         "dest": "index.js"
+       }
+     ],
+     "headers": [
+       {
+         "source": "/index.html",
+         "headers": [
+           { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
+         ]
+       },
+       {
+         "source": "/app.html",
+         "headers": [
+           { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
+         ]
+       }
+     ]
+   }
