@@ -12,15 +12,15 @@
       "dest": "/new-route"
     },
     {
-      "src": "/index.html",
-      "dest": "/index.html",
+      "src": "/app.html",
+      "dest": "/app.html",
       "headers": {
         "Cache-Control": "no-cache, no-store, must-revalidate"
       }
     },
     {
-      "src": "/app.html",
-      "dest": "/app.html",
+      "src": "/index.html",
+      "dest": "/index.html",
       "headers": {
         "Cache-Control": "no-cache, no-store, must-revalidate"
       }
