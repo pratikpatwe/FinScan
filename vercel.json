@@ -8,8 +8,8 @@
   ],
   "routes": [
     {
-      "src": "/old-route",
-      "dest": "/new-route"
+      "src": "/(.*)",
+      "dest": "index.js"
     },
     {
       "src": "/app.html",
